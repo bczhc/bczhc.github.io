@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Argon2</title>
+</head>
+<body>
+<noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
+<script src="./bootstrap.js"></script>
+
+<label for="data">Plain Text Input</label><br>
+<input type="text" id="data" placeholder="Data">
+<br><br>
+
+<label for="method">Method</label><br>
+<select name="method" id="method">
+    <option value="argon2i">Argon2i</option>
+    <option value="argon2d">Argon2d</option>
+    <option value="argon2id" selected>Argon2id</option>
+</select>
+<br><br>
+
+<label for="salt">Salt</label>
+<input type="text" id="salt" name="salt">
+<input type="button" value="Random" id="random-salt-btn">
+<br><br>
+
+<label for="m-cost">Memory Cost</label>
+<input type="number" id="m-cost" value="4096">
+<br><br>
+
+<label for="t-cost">Iterations</label>
+<input type="number" id="t-cost" value="30">
+<br><br>
+
+<label for="p-cost">Parallelism Degree</label>
+<input type="number" id="p-cost" value="1">
+<br><br>
+
+<label for="hash-length">Output Hash Length</label>
+<input type="number" id="hash-length" value="32">
+<br><br>
+
+<input type="button" value="Generate Hash" id="generate">
+<br><br>
+
+<p id="output"></p>
+<p id="time-took"></p>
+
+<script>
+    let dataInput = document.getElementById("data");
+    let generateBtn = document.getElementById("generate");
+    let randomSaltBtn = document.getElementById("random-salt-btn");
+    let saltInput = document.getElementById("salt");
+    let methodInput = document.getElementById("method");
+    let mCostInput = document.getElementById("m-cost");
+    let tCostInput = document.getElementById("t-cost");
+    let pCostInput = document.getElementById("p-cost");
+    let hashLenInput = document.getElementById("hash-length");
+    let output = document.getElementById("output");
+    let timeTookOutput = document.getElementById("time-took");
+
+    randomSaltBtn.onclick = () => {
+        saltInput.value = WASM.random_salt();
+    };
+
+    generateBtn.onclick = () => {
+        output.innerText = 'Generating...';
+
+        setTimeout(() => {
+            let salt = saltInput.value;
+            let method = methodInput.value;
+            let input = dataInput.value;
+            let data = WASM.to_utf8(input);
+            let mCost = mCostInput.value;
+            let tCost = tCostInput.value;
+            let pCost = pCostInput.value;
+            let hashLength = hashLenInput.value;
+
+            try {
+                let start = Date.now();
+                output.innerText = WASM.hash(method, data, salt, mCost, tCost, pCost, hashLength);
+                let end = Date.now();
+                timeTookOutput.innerText = `Time took: ${end - start} ms`;
+            } catch (e) {
+                output.innerText = "Error: " + e;
+            }
+        }, 0)
+    };
+</script>
+</body>
+</html>
