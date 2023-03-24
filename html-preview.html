@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<label for="code"></label><textarea id="code" rows="20" cols="100"></textarea>
+<br>
+<button id="button">Preview</button>
+
+<script>
+    document.getElementById("button").onclick = () => {
+        let code = document.getElementById("code").value;
+        let newWindow = window.open();
+        newWindow.document.write(code)
+    };
+</script>
+</body>
+</html>
