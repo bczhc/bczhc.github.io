@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Casio 991CN X 二级字符词典</title>
+</head>
+<body>
+<script>
+    // language=TEXT
+    let data1 = `￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼
+xyz…￼￼￼￼$￼&￼￼￼￼￼
+ !"#×%÷'()·+,−./
+ 0123456789:;<=>?
+ @ABCDEFGHIJKLMNO
+ PQRSTUVWXYZ[￼]^_
+ -abcdefghijklmno
+ pqrstuvwxyz{|}~￼
+ ￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼
+ ￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼
+ ￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼
+ ￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼
+ ￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼
+ ￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼
+ ￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼
+ ￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼`.replaceAll(/\n/g, '');
+
+    let data2 = `￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼
+中文计算复数统分布基方程函矩阵表
+格向量验证比例不等式递归列据公输
+入出角度单位显示结果循环小点字隔
+符简化工号自动关闭电源语言多行对
+当前频学线性弧百带假开句逗手钟普
+通体深浅范围始值终止步长真继续正
+态概率密累积反二项泊松变选择类型
+编辑双回清除存储器插全部删下限上
+区域逆求和最大面质时间速加力压卡
+路里功热温粘运磁光放射吸收剂照用
+常原子与核物理采其他键断法错误堆
+栈维无解超空转到联立未知个次穷实
+根所有设置初是取消按。的返科规曲
+辐共轭提虚阶梯形转两成内定义能　
+￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼`.replaceAll(/\n/g, '');
+
+    let hexTable = '0123456789ABCDEF';
+</script>
+
+<input type="text" id="input">
+<div id="result"></div>
+<script>
+    let inputElem = document.getElementById('input');
+    let resultElem = document.getElementById('result');
+    inputElem.oninput = () => {
+        let value = inputElem.value;
+        let resultBytes = [];
+        for (let char of [...value]) {
+            console.log(char);
+            let indexOf = null;
+            indexOf = data1.indexOf(char);
+            if (indexOf !== -1) {
+                resultBytes.push(`${hexTable[Math.floor(indexOf / 16)]}${hexTable[indexOf % 16]}`);
+            } else if ((indexOf = data2.indexOf(char)) !== -1) {
+                resultBytes.push(`F1 ${hexTable[Math.floor(indexOf / 16)]}${hexTable[indexOf % 16]}`);
+            } else {
+                resultBytes.push('??');
+            }
+        }
+        resultElem.innerText = resultBytes.join(' ');
+    };
+</script>
+</body>
+</html>
