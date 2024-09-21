@@ -1,4 +1,4 @@
 #!/bin/bash
 
-fd --extension=json -t f -S +15B . qlottie > list
-fd --extension=json -t f -S +15B . EmojiSystermResource >> list
+fd --extension=json -t f -S +15B . res/qlottie > list
+fd --extension=json -t f -S +15B . res/EmojiSystermResource >> list

@@ -1,0 +1,18 @@
+#!/bin/env ruby
+
+require 'pathname'
+require 'digest'
+
+list = File.new('list').readlines(chomp: true)
+
+set = Set.new
+list.each { |line| set.add line }
+
+Dir.glob("res/**/*").each do |path|
+  next unless File.file? path
+  next if set.include? path
+
+  puts "Delete unused: #{path}"
+  File.delete path
+end
+
