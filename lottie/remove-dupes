@@ -1,0 +1,28 @@
+#!/bin/env ruby
+
+require 'pathname'
+require 'digest'
+
+base_path = '.'
+list_file = Pathname(base_path).join 'list'
+list = File.new(list_file).readlines(chomp: true)
+
+digest_set = Set.new
+new_file_list = []
+
+list.each do |line|
+  file_path =Pathname(base_path).join(line)
+  next unless File.exist? file_path
+  digest = Digest::SHA256.file(file_path.to_s).hexdigest
+  if digest_set.include? digest
+    # delete the duplicated file
+    File.delete file_path
+    puts "Delete duplicate: #{file_path}"
+  else
+    new_file_list.push line
+  end
+  digest_set.add digest
+end
+
+File.delete list_file
+File.open(list_file, 'w').write new_file_list.join("\n")

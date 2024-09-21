@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+rsync -av /home/bczhc/.config/QQ/nt_qq_6bb87db59dd2e7d303966b6fc81dc8dd/nt_data/Emoji/BaseEmojiSyastems/EmojiSystermResource . --delete
+rsync -av /home/bczhc/.config/QQ/global/nt_data/Emoji/emoji-resource/qlottie . --delete
+
+./mklist
+./remove-dupes
+
+# exclude
+sed -i '/emojiid/d' list
