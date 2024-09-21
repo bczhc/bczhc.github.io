@@ -24,12 +24,16 @@
         let container = document.getElementById('lottie-player-container');
 
         for (let name of list) {
+            let lottieJson = (await axios.get(`/lottie/${name}`)).data;
+            let lottieName = lottieJson['nm'];
+            console.log(lottieName);
+
             let cloned = templateElem.cloneNode(true);
             cloned.setAttribute('src', `lottie/${name}`)
 
             // title
             let titleElem = document.createElement('span');
-            titleElem.innerHTML = name;
+            titleElem.innerHTML = `${name}, ${lottieName}`;
             container.appendChild(titleElem);
 
             container.appendChild(cloned)
