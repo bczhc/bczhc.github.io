@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+</head>
+<body>
+<canvas style="width: 300px; height: 300px" id="canvas"></canvas>
+
+<script type="module">
+    import {DotLottie} from "https://esm.sh/@lottiefiles/dotlottie-web";
+
+    let canvas = document.querySelector('#canvas');
+    new DotLottie({
+        loop: true,
+        src: 'https://raw.githubusercontent.com/bczhc/bczhc.github.io/75ee4f6945699cd450b3815dd8839278b5129b6e/lottie/res/qlottie/1/23/23.json',
+        canvas,
+    })
+</script>
+</body>
+</html>
